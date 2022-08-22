@@ -17,4 +17,6 @@ class SplashActivity : AppCompatActivity() {
  *  4. Auth management using Firebase
  *  5. Notifications using Firebase or custom notifications
  *  6. MVVM architecture
+ *  7. sharedPref to save local user's data
+ *  phone verification: https://firebase.google.com/docs/auth/android/phone-auth?authuser=0&hl=en
  */

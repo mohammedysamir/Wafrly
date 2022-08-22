@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836596930234",
+    "project_id": "wafrly",
+    "storage_bucket": "wafrly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836596930234:android:2f297de62eb825c1011483",
+        "android_client_info": {
+          "package_name": "com.myasser.wafrly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836596930234-np97okutoj3kcn68dcfq27hnmondnmie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myasser.wafrly",
+            "certificate_hash": "3f4f7b0f73475c469dead044f719f089bb723b44"
+          }
+        },
+        {
+          "client_id": "836596930234-gn4b5h8td54c7av2e7164s2cqm6inkuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOVy61FC_kONWFokbZlOEJ4JeVkS5tvZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836596930234-gn4b5h8td54c7av2e7164s2cqm6inkuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
