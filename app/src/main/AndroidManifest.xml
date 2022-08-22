@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wafrly">
         <activity
+            android:name=".views.FavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.CategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.SplashActivity"
             android:exported="true">
             <intent-filter>
