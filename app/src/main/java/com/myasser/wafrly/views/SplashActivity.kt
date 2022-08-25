@@ -1,13 +1,27 @@
 package com.myasser.wafrly.views
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.myasser.wafrly.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        //set animation to logo
+        findViewById<ImageView>(R.id.wafrlyLogo).animation =
+            android.view.animation.AnimationUtils.loadAnimation(this, R.anim.splash_anim)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            //todo: remove hard-coded delay and depend on max( coroutines department fetching, 2 seconds)
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            finish()
+        }, 2000)
+        //todo: image should be replaced with dark-version if the theme is dark
     }
 }
 /**
