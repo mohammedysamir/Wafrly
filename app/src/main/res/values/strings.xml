@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Wafrly</string>
+    <string name="tagline">Fast Buy \'n Delivery</string>
+    <string name="register">Register</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="user_name_hint">User Name</string>
+    <string name="have_an_account">Have an account ?</string>
 </resources>

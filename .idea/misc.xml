@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Wafrly/app/src/main/res/drawable/edit_text_border.xml" value="0.133" />
+        <entry key="..\:/Wafrly/app/src/main/res/drawable/primary_button_background.xml" value="0.133" />
+        <entry key="..\:/Wafrly/app/src/main/res/drawable/secondart_button_border.xml" value="0.133" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/activity_favorite.xml" value="0.17074275362318841" />
+        <entry key="..\:/Wafrly/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Wafrly/app/src/main/res/layout/activity_splash.xml" value="0.33" />
       </map>
     </option>
   </component>

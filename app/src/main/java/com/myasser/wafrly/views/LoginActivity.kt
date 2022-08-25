@@ -10,3 +10,4 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
     }
 }
+//todo: determine if user is new or not ... or add Tab layout with [Register, Login] and switch between them.
