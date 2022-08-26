@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
             android.view.animation.AnimationUtils.loadAnimation(this, R.anim.splash_anim)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            //todo: remove hard-coded delay and depend on max( coroutines department fetching, 2 seconds)
+            //todo: remove hard-coded delay and depend on max( coroutines department fetching, 2 seconds) -> Hook with Splash VM
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
         }, 2000)
