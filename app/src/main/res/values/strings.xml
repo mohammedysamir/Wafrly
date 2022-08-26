@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Wafrly</string>
+    <string name="tagline">Fast Buy \'n Delivery</string>
+    <string name="register">Register</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="user_name_hint">User Name</string>
+    <string name="have_an_account">Have an account ?</string>
+    <string name="login">Login</string>
+    <string name="user_email_hint">Email</string>
+    <string name="user_password_hint">Password</string>
+    <string name="register_successfully">User created successfully</string>
+    <string name="register_failed">Creation failed</string>
+    <string name="login_successfully">Login Successful</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="empty_email_error">Can\'t proceed without an email</string>
+    <string name="empty_password_error">Can\'t proceed without a password</string>
+    <string name="fill_fields_command">Please fill in all fields</string>
 </resources>

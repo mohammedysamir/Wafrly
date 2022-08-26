@@ -1,14 +1,16 @@
 package com.myasser.wafrly.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.myasser.wafrly.models.data.Product
 
 interface IAccountRepository {
-    fun loginValidation(email: String, password: String):Boolean //validate info and login
-    fun register(email: String, password: String)
+    fun googleLogin(): MutableLiveData<Boolean> //validate info and login
+    fun login(email: String, password: String):MutableLiveData<Boolean> //validate info and login
+    fun register(email: String, password: String):MutableLiveData<Boolean>
     fun addToCart(product: Product)
     fun addToFavorite(product: Product)
     fun removeFromCart(product: Product)
     fun removeFromFavorite(product: Product)
-    fun getCart(): List<Product>
-    fun getFavorite(): List<Product>
+    fun getCart(): MutableLiveData<List<Product>>
+    fun getFavorite(): MutableLiveData<List<Product>>
 }
