@@ -13,8 +13,8 @@ import com.myasser.wafrly.R
 import com.myasser.wafrly.viewmodels.LoginViewModel
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
-    lateinit var checkBox: CheckBox
-    private var isChecked = false
+    private lateinit var checkBox: CheckBox
+    private var isChecked = false //indicator for login-register checkbox
     private lateinit var loginViewModel: LoginViewModel
 
     companion object {
@@ -107,4 +107,3 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 }
-//todo: hook with Login VM

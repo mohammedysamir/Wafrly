@@ -14,7 +14,9 @@ class AccountRepository(val context: Context) : IAccountRepository {
     private val auth: FirebaseAuth = Firebase.auth
 
     override fun googleLogin(): MutableLiveData<Boolean> {
-        TODO("Not yet implemented")
+        //todo: read firebase doc, define a way to auth with google's token
+        Toast.makeText(context, "Google login not implemented", Toast.LENGTH_LONG).show()
+        return MutableLiveData(true)
     }
 
     override fun login(email: String, password: String): MutableLiveData<Boolean> {
