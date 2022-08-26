@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".views.LoginActivity">
 
+    <ImageView
+        android:id="@+id/pattern"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pattern"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/userEmailEditText"
+        style="@style/editTextStyle"
+        android:layout_marginTop="50dp"
+        android:hint="@string/user_email_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pattern" />
+
+    <EditText
+        android:id="@+id/userPasswordEditText"
+        style="@style/editTextStyle"
+        android:layout_marginTop="35dp"
+        android:hint="@string/user_password_hint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userEmailEditText" />
+
+    <CheckBox
+        android:id="@+id/loginCheckBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:buttonTint="?attr/colorOnPrimary"
+        android:text="@string/have_an_account"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userPasswordEditText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/registerButton"
+        style="@style/primaryButtonStyle"
+        android:layout_marginTop="30dp"
+        android:text="@string/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginCheckBox" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginGoogleButton"
+        style="@style/secondaryButtonStyle"
+        android:layout_marginTop="20dp"
+        android:text="@string/login_with_google"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registerButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
