@@ -1,5 +1,5 @@
 package com.myasser.wafrly.models.data
 
-class Department(){
+class Category(){
     //TODO: Add properties
 }
