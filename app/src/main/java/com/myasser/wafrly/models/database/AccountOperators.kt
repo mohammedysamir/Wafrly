@@ -1,15 +1,16 @@
 package com.myasser.wafrly.models.database
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.myasser.wafrly.models.data.Product
 
 interface AccountOperators {
-    fun loginValidation(email: String, password: String): Boolean
-    fun register(email: String, password: String)
+    fun login(email: String, password: String): Boolean
+    fun googleLogin(): Boolean
+    fun register(email: String, password: String): Boolean
     fun addToCart(product: Product)
     fun addToFavorite(product: Product)
     fun removeFromCart(product: Product)
     fun removeFromFavorite(product: Product)
-    fun getCart(): LiveData<List<Product>>
-    fun getFavorite(): LiveData<List<Product>>
+    fun getCart(): List<Product>
+    fun getFavorite():List<Product>
 }
