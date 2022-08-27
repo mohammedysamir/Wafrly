@@ -1,5 +1,3 @@
 package com.myasser.wafrly.models.data
 
-class Category(){
-    //TODO: Add properties
-}
+data class Category(val name: String, val products: ArrayList<Product>?)
