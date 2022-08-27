@@ -1,5 +1,3 @@
 package com.myasser.wafrly.models.data
 
-class Favorite {
-    //TODO: Add properties
-}
+data class Favorite(val items: ArrayList<Product>)
