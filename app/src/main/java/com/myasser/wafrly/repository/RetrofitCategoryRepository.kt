@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //category base url: https://fakestoreapi.com/products/categories
 //specific category: baseurl+categoryName
-class CategoryRepository : ICategoryRepository {
+class RetrofitCategoryRepository : ICategoryRepository {
     private val baseUrl = "https://fakestoreapi.com/products/categories"
 
     //initiate the retrofit builder and return response in the form of a MutableLiveData <list of strings>

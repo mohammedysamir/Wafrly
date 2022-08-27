@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 // product by id: baseurl/id
 // query: baseurl?sort=[desc | asc]& limit=[number]
 
-class ProductRepository : IProductRepository {
+class RetrofitProductRepository : IProductRepository {
     private val baseUrl = "https://fakestoreapi.com/products"
     private val retrofitBuilder: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
