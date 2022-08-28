@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.myasser.wafrly.R
 import com.myasser.wafrly.views.CategoryActivity
+import com.myasser.wafrly.views.ProductsActivity
 
 class CategoryGridViewAdapter(private val Categories: List<String>) : BaseAdapter() {
     override fun getCount() = Categories.size
@@ -30,7 +31,7 @@ class CategoryGridViewAdapter(private val Categories: List<String>) : BaseAdapte
         //hook listener for navigation
         convertView.setOnClickListener {
             convertView.context.startActivity(Intent(convertView.context,
-                CategoryActivity::class.java).putExtra("category name", Categories[position]))
+                ProductsActivity::class.java).putExtra("category name", Categories[position]))
         }
         return convertView
     }

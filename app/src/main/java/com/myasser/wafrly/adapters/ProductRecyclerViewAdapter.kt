@@ -1,6 +1,7 @@
 package com.myasser.wafrly.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,9 @@ import com.myasser.wafrly.R
 import com.myasser.wafrly.models.data.Product
 import com.myasser.wafrly.models.database.AccountOperators
 import com.myasser.wafrly.models.database.FireAccountOperator
+import com.myasser.wafrly.views.ProductActivity
 
-class ProductRecyclerViewAdapter(private val products: List<Product>, context: Context) :
+class ProductRecyclerViewAdapter(private val products: List<Product>, val context: Context) :
     RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder>() {
     private val accountRepo: AccountOperators = FireAccountOperator(context)
 
@@ -25,7 +27,7 @@ class ProductRecyclerViewAdapter(private val products: List<Product>, context: C
         val productImageView: ImageView = view.findViewById(R.id.productImage)
         val productFavoriteIcon: ImageView = view.findViewById(R.id.favoriteIcon)
         val productCartIcon: ImageView = view.findViewById(R.id.addToCartIcon)
-        val productImageCardView: CardView =view.findViewById(R.id.imageCard)
+        val productImageCardView: CardView = view.findViewById(R.id.imageCard)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -68,6 +70,12 @@ class ProductRecyclerViewAdapter(private val products: List<Product>, context: C
                 accountRepo.addToFavorite(product)
                 favoriteIcon.setImageResource(R.drawable.ic_baseline_favorite_48)
             }
+        }
+        holder.itemView.setOnClickListener {
+            //todo: test if this will enable the product to be clicked
+            //navigate and send product id
+            context.startActivity(Intent(context, ProductActivity::class.java).putExtra("productId",
+                product.id))
         }
     }
 
