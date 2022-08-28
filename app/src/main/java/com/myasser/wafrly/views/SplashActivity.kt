@@ -35,3 +35,9 @@ class SplashActivity : AppCompatActivity() {
  *  7. sharedPref to save local user's data
  *  phone verification: https://firebase.google.com/docs/auth/android/phone-auth?authuser=0&hl=en
  */
+/*
+* Thinking corner:
+*   in MVVM we must obey this flow:
+*   View -> ViewModel -> Repository -> Database/API
+*   and to follow strategy pattern, FireAccountOperator must have the implementation of firebase storing and fetching code. then Repository will fetch data from it.
+* */

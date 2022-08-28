@@ -2,10 +2,9 @@ package com.myasser.wafrly.models.database
 
 import androidx.lifecycle.LiveData
 import com.myasser.wafrly.models.data.Product
+import retrofit2.Call
 
 interface ProductOperator {
-    fun getAllProducts(): LiveData<List<Product>>
-    fun getProductByName(name: String): LiveData<List<Product>>
-    fun getTopRatedProducts(): LiveData<List<Product>>
-    fun getTopSalesProducts(): LiveData<List<Product>>
+    fun getAllProducts(): Call<List<Product>>
+    fun getProductById(id: Int): Call<Product>
 }
