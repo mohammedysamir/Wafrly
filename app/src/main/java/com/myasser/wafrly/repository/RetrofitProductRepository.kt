@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 // query: baseurl?sort=[desc | asc]& limit=[number]
 
 class RetrofitProductRepository : IProductRepository {
-    private val baseUrl = "https://fakestoreapi.com/products"
+    private val baseUrl = "https://fakestoreapi.com/"
     private val retrofitBuilder: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -51,4 +51,23 @@ class RetrofitProductRepository : IProductRepository {
         })
         return product
     }
+
+    override fun getProductsByCategory(category: String): MutableLiveData<List<Product>> {
+        val products = MutableLiveData<List<Product>>()
+        productService.getProductsByCategory(category)
+            .enqueue(object : retrofit2.Callback<List<Product>> {
+                override fun onResponse(
+                    call: retrofit2.Call<List<Product>>,
+                    response: retrofit2.Response<List<Product>>,
+                ) {
+                    products.value = response.body()
+                }
+
+                override fun onFailure(call: retrofit2.Call<List<Product>>, t: Throwable) {
+                    products.value = null
+                }
+            })
+        return products
+    }
+
 }
