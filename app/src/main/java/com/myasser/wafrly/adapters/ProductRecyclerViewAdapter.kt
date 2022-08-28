@@ -1,11 +1,13 @@
 package com.myasser.wafrly.adapters
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.myasser.wafrly.R
@@ -23,6 +25,7 @@ class ProductRecyclerViewAdapter(private val products: List<Product>, context: C
         val productImageView: ImageView = view.findViewById(R.id.productImage)
         val productFavoriteIcon: ImageView = view.findViewById(R.id.favoriteIcon)
         val productCartIcon: ImageView = view.findViewById(R.id.addToCartIcon)
+        val productImageCardView: CardView =view.findViewById(R.id.imageCard)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -40,6 +43,10 @@ class ProductRecyclerViewAdapter(private val products: List<Product>, context: C
         holder.productTitleTextView.text = product.title
         holder.productPriceTextView.text = product.price.toString()
         Glide.with(holder.itemView.context).load(product.image).into(holder.productImageView)
+
+        //change card color randomly
+        val backgroundColor = colorsList.random()
+        holder.productImageCardView.setCardBackgroundColor(ColorStateList.valueOf(backgroundColor))
 
         //todo: test icon switching
         holder.itemView.findViewById<ImageView>(R.id.addToCartIcon).setOnClickListener {
