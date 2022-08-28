@@ -74,7 +74,7 @@ class ProductRecyclerViewAdapter(private val products: List<Product>, val contex
         holder.itemView.setOnClickListener {
             //todo: test if this will enable the product to be clicked
             //navigate and send product id
-            context.startActivity(Intent(context, ProductActivity::class.java).putExtra("productId",
+            context.startActivity(Intent(context, ProductActivity::class.java).putExtra("product id",
                 product.id))
         }
     }

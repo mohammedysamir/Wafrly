@@ -17,4 +17,6 @@
     <string name="empty_password_error">Can\'t proceed without a password</string>
     <string name="fill_fields_command">Please fill in all fields</string>
     <string name="welcome_text">Welcome to \nWafrly</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="remove_from_cart">Remove from cart</string>
 </resources>
