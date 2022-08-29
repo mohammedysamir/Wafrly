@@ -19,4 +19,5 @@
     <string name="welcome_text">Welcome to \nWafrly</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="remove_from_cart">Remove from cart</string>
+    <string name="cart">Cart</string>
 </resources>
