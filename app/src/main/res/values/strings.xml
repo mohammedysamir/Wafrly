@@ -21,4 +21,10 @@
     <string name="remove_from_cart">Remove from cart</string>
     <string name="cart">Cart</string>
     <string name="favorite_items">Favorite items</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_checkout">Confirm Checkout</string>
+    <string name="do_you_confirm_this_checkout_with_bill_amount">Do you confirm this checkout with bill amount = $ %1$s?</string>
+    <string name="checkout">Checkout</string>
+    <string name="checkout_confirmed_msg">Items have been added to a queue and will be delivered soon.</string>
 </resources>
