@@ -17,4 +17,5 @@ class CartViewModel(context: Context): ViewModel() {
         }
         return MutableLiveData(bill)
     }
+    fun clearCart() = accountRepo.clearCart()
 }
