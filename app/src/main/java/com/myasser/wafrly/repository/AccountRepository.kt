@@ -3,6 +3,8 @@ package com.myasser.wafrly.repository
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import com.myasser.wafrly.models.data.Product
 import com.myasser.wafrly.models.database.AccountOperators
 import com.myasser.wafrly.models.database.FireAccountOperator
@@ -10,8 +12,12 @@ import com.myasser.wafrly.models.database.FireAccountOperator
 class AccountRepository(val context: Context) : IAccountRepository {
     private val accountOperators: AccountOperators = FireAccountOperator(context)
 
-    override fun googleLogin(): MutableLiveData<Intent> {
-        return MutableLiveData<Intent>(accountOperators.googleLogin().signInIntent)
+    override fun showGoogleLogin(): MutableLiveData<Intent> {
+        return MutableLiveData<Intent>(accountOperators.showGoogleLogin().signInIntent)
+    }
+
+    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>):MutableLiveData<Boolean> {
+        return MutableLiveData(accountOperators.handleGoogleLogin(task))
     }
 
     override fun login(email: String, password: String): MutableLiveData<Boolean> {
