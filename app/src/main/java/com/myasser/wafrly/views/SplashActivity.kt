@@ -6,12 +6,15 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.FirebaseApp
 import com.myasser.wafrly.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        FirebaseApp.initializeApp(this) //initialize firebase
+
         //set animation to logo
         findViewById<ImageView>(R.id.wafrlyLogo).animation =
             android.view.animation.AnimationUtils.loadAnimation(this, R.anim.splash_anim)
