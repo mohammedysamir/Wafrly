@@ -2,8 +2,6 @@ package com.myasser.wafrly.models.database
 
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -68,7 +66,9 @@ class FireAccountOperator(val context: Context) : AccountOperators {
             .addListenerForSingleValueEvent(object :
                 com.google.firebase.database.ValueEventListener {
                 override fun onCancelled(p0: com.google.firebase.database.DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(context,
+                        context.getString(R.string.remove_cart_error),
+                        Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onDataChange(p0: com.google.firebase.database.DataSnapshot) {
@@ -84,7 +84,9 @@ class FireAccountOperator(val context: Context) : AccountOperators {
             .addListenerForSingleValueEvent(object :
                 com.google.firebase.database.ValueEventListener {
                 override fun onCancelled(p0: com.google.firebase.database.DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(context,
+                        context.getString(R.string.remove_favorite_error),
+                        Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onDataChange(p0: com.google.firebase.database.DataSnapshot) {

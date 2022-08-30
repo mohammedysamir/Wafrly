@@ -27,4 +27,6 @@
     <string name="do_you_confirm_this_checkout_with_bill_amount">Do you confirm this checkout with bill amount = $ %1$s?</string>
     <string name="checkout">Checkout</string>
     <string name="checkout_confirmed_msg">Items have been added to a queue and will be delivered soon.</string>
+    <string name="remove_favorite_error">Can\'t remove item from favorite, try again later!</string>
+    <string name="remove_cart_error">Can\'t remove item from cart, try again later!</string>
 </resources>
