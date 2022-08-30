@@ -1,6 +1,7 @@
 package com.myasser.wafrly.views
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -47,19 +48,29 @@ class CartActivity : AppCompatActivity(), View.OnClickListener {
                 descriptionTextView.text =
                     v.context.resources.getString(R.string.do_you_confirm_this_checkout_with_bill_amount,
                         cartViewModel.calculateBill(adapter?.products!!).value.toString())
+                //set listeners to button
                 confirmButton.setOnClickListener {
+                    //notify
                     Toast.makeText(this@CartActivity,
                         getString(R.string.checkout_confirmed_msg),
                         Toast.LENGTH_LONG).show()
+                    //when confirm is clicked, delete all cart items and go to home screen, send notification to user.
+                    //todo: send notifications to user after the checkout
+                    //clear cart
                     cartViewModel.clearCart()
+
+                    //dismiss dialog
                     dialog.dismiss()
+
+                    //go to home screen
+                    startActivity(Intent(this@CartActivity, CategoryActivity::class.java))
+                    finish()
                 }
                 cancelButton.setOnClickListener {
                     dialog.dismiss()
                 }
                 dialog.show()
-                //when confirm is clicked, delete all cart items and go to home screen, send notification to user.
-                //todo: send notifications to user after the checkout
+
             }
         }
     }
