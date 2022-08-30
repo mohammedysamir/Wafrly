@@ -1,8 +1,16 @@
 package com.myasser.wafrly.models.database
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -32,9 +40,31 @@ class FireAccountOperator(val context: Context) : AccountOperators {
         return loginSuccess
     }
 
-    override fun googleLogin(): Boolean {
-        //todo: read firebase doc, define a way to auth with google's token
-        Toast.makeText(context, "Google login not implemented", Toast.LENGTH_LONG).show()
+    override fun showGoogleLogin(): GoogleSignInClient {
+        val webClientId = "836596930234-gn4b5h8td54c7av2e7164s2cqm6inkuv.apps.googleusercontent.com"
+        val signInRequest = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(webClientId)
+            .requestEmail()
+            .build()
+        return GoogleSignIn.getClient(context, signInRequest)
+    }
+
+    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>): Boolean {
+        try {
+            val account = task.getResult(ApiException::class.java)
+            account?.let {
+                //get credentials
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                auth.signInWithCredential(credential).addOnCompleteListener {
+                    if (task.isSuccessful) {
+                        Log.i("GoogleLogin", "Successfully logged in")
+                    }
+                }
+            }
+        } catch (e: ApiException) {
+            Log.e("Google Login", "signInResult:failed code=" + e.statusCode)
+            return false
+        }
         return true
     }
 
@@ -121,4 +151,7 @@ class FireAccountOperator(val context: Context) : AccountOperators {
         }
         return products
     }
+
+    override fun getCurrentUser() = auth.currentUser
+
 }
