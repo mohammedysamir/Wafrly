@@ -1,6 +1,7 @@
 package com.myasser.wafrly.repository
 
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import com.myasser.wafrly.models.data.Product
 import com.myasser.wafrly.models.database.AccountOperators
@@ -9,8 +10,8 @@ import com.myasser.wafrly.models.database.FireAccountOperator
 class AccountRepository(val context: Context) : IAccountRepository {
     private val accountOperators: AccountOperators = FireAccountOperator(context)
 
-    override fun googleLogin(): MutableLiveData<Boolean> {
-        return MutableLiveData<Boolean>(accountOperators.googleLogin())
+    override fun googleLogin(): MutableLiveData<Intent> {
+        return MutableLiveData<Intent>(accountOperators.googleLogin().signInIntent)
     }
 
     override fun login(email: String, password: String): MutableLiveData<Boolean> {
