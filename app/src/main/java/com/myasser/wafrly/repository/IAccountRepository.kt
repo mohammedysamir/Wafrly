@@ -12,5 +12,6 @@ interface IAccountRepository {
     fun removeFromCart(product: Product)
     fun removeFromFavorite(product: Product)
     fun getCart(): MutableLiveData<List<Product>>
+    fun clearCart()
     fun getFavorite(): MutableLiveData<List<Product>>
 }

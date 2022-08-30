@@ -3,12 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Wafrly/app/src/main/res/drawable/cancel_button_background.xml" value="0.133" />
         <entry key="..\:/Wafrly/app/src/main/res/drawable/edit_text_border.xml" value="0.133" />
         <entry key="..\:/Wafrly/app/src/main/res/drawable/ic_baseline_add_shopping_cart_36.xml" value="0.133" />
         <entry key="..\:/Wafrly/app/src/main/res/drawable/primary_button_background.xml" value="0.133" />
         <entry key="..\:/Wafrly/app/src/main/res/drawable/secondart_button_border.xml" value="0.133" />
+        <entry key="..\:/Wafrly/app/src/main/res/drawable/secondary_button_background.xml" value="0.1965" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/activity_card.xml" value="0.17074275362318841" />
-        <entry key="..\:/Wafrly/app/src/main/res/layout/activity_cart.xml" value="0.17074275362318841" />
+        <entry key="..\:/Wafrly/app/src/main/res/layout/activity_cart.xml" value="0.25" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/activity_category.xml" value="0.2" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/activity_favorite.xml" value="0.17074275362318841" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/activity_login.xml" value="0.22" />
@@ -17,6 +19,7 @@
         <entry key="..\:/Wafrly/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/card.xml" value="0.17074275362318841" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/category_card.xml" value="0.17074275362318841" />
+        <entry key="..\:/Wafrly/app/src/main/res/layout/checkout_confirm.xml" value="0.33" />
         <entry key="..\:/Wafrly/app/src/main/res/layout/product_item.xml" value="0.33" />
       </map>
     </option>

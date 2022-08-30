@@ -105,6 +105,11 @@ class FireAccountOperator(val context: Context) : AccountOperators {
         return products
     }
 
+    override fun clearCart() {
+        //todo: may need to be tested
+        cartReference.setValue(null)
+    }
+
     override fun getFavorite(): List<Product> {
         val products = ArrayList<Product>()
         favoriteReference.get().addOnSuccessListener {

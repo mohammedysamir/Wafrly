@@ -12,5 +12,6 @@ interface AccountOperators {
     fun removeFromCart(product: Product)
     fun removeFromFavorite(product: Product)
     fun getCart(): List<Product>
+    fun clearCart()
     fun getFavorite():List<Product>
 }
