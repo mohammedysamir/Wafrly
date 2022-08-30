@@ -17,7 +17,7 @@ import com.myasser.wafrly.models.database.AccountOperators
 import com.myasser.wafrly.models.database.FireAccountOperator
 import com.myasser.wafrly.views.ProductActivity
 
-class ProductRecyclerViewAdapter(private val products: List<Product>, val context: Context) :
+class ProductRecyclerViewAdapter(val products: List<Product>, val context: Context) :
     RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder>() {
     private val accountRepo: AccountOperators = FireAccountOperator(context)
 

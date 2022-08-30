@@ -1,6 +1,7 @@
 package com.myasser.wafrly.views
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.myasser.wafrly.R
@@ -15,8 +16,16 @@ class CartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cart)
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
         cartViewModel = CartViewModel(this)
+        var adapter: ProductRecyclerViewAdapter?=null
         cartViewModel.getCartItems().observe(this) {
-            cartRecyclerView.adapter = ProductRecyclerViewAdapter(it, this)
+            adapter = ProductRecyclerViewAdapter(it, this)
+            cartRecyclerView.adapter = adapter!!
+        }
+        //get bill
+        cartViewModel.calculateBill(adapter?.products!!).observe(this) {
+            //show bill
+            findViewById<TextView>(R.id.cartBillTextView).text="Bill: $ $it"
         }
     }
+    //implement checkout
 }
