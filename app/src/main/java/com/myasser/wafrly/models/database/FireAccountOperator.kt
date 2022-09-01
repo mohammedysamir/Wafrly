@@ -3,6 +3,7 @@ package com.myasser.wafrly.models.database
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
@@ -20,7 +21,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.myasser.wafrly.R
 import com.myasser.wafrly.models.data.Product
-import com.myasser.wafrly.views.LoginActivity
+import com.myasser.wafrly.views.CategoryActivity
 
 class FireAccountOperator(val context: Context) : AccountOperators {
     private val auth: FirebaseAuth = Firebase.auth
@@ -28,21 +29,23 @@ class FireAccountOperator(val context: Context) : AccountOperators {
     private val cartReference = database.child("cart")
     private val favoriteReference = database.child("favorite")
 
-    override fun login(email: String, password: String): Boolean {
-        var loginSuccess = false
+    override fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
+                context.startActivity(Intent(context, CategoryActivity::class.java))
                 Toast.makeText(context,
                     context.getString(R.string.login_successfully),
                     Toast.LENGTH_SHORT).show()
-                LoginActivity.user = auth.currentUser
-                loginSuccess = true
+                //todo: need to call finish() here
             } else {
-                loginSuccess = false
+                Toast.makeText(context,
+                    context.getString(R.string.login_failed),
+                    Toast.LENGTH_SHORT).show()
             }
         }
-        return loginSuccess
     }
+
+    //todo: move register, login navigation here
 
     override fun showGoogleLogin(): GoogleSignInClient {
         val webClientId = "836596930234-gn4b5h8td54c7av2e7164s2cqm6inkuv.apps.googleusercontent.com"
@@ -53,7 +56,7 @@ class FireAccountOperator(val context: Context) : AccountOperators {
         return GoogleSignIn.getClient(context, signInRequest)
     }
 
-    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>): Boolean {
+    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>) {
         try {
             val account = task.getResult(ApiException::class.java)
             account?.let {
@@ -61,29 +64,33 @@ class FireAccountOperator(val context: Context) : AccountOperators {
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 auth.signInWithCredential(credential).addOnCompleteListener {
                     if (task.isSuccessful) {
-                        Log.i("GoogleLogin", "Successfully logged in")
+                        context.startActivity(Intent(context, CategoryActivity::class.java))
+                    } else {
+                        Toast.makeText(context,
+                            context.getString(R.string.login_failed),
+                            Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         } catch (e: ApiException) {
             Log.e("Google Login", "signInResult:failed code=" + e.statusCode)
-            return false
         }
-        return true
     }
 
-    override fun register(email: String, password: String): Boolean {
-        var registerSuccess = false
+    override fun register(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                LoginActivity.user = auth.currentUser
-                registerSuccess = true
+                context.startActivity(Intent(context, CategoryActivity::class.java))
+                Toast.makeText(context,
+                    context.getString(R.string.register_successfully),
+                    Toast.LENGTH_SHORT).show()
+                //todo: need to call finish() here
             } else {
-                LoginActivity.user = null
-                registerSuccess = false
+                Toast.makeText(context,
+                    context.getString(R.string.register_failed),
+                    Toast.LENGTH_SHORT).show()
             }
         }
-        return registerSuccess
     }
 
     //todo: test below functions

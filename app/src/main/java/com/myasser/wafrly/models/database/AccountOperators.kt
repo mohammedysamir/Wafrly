@@ -9,10 +9,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.myasser.wafrly.models.data.Product
 
 interface AccountOperators {
-    fun login(email: String, password: String): Boolean
+    fun login(email: String, password: String)
     fun showGoogleLogin(): GoogleSignInClient
-    fun handleGoogleLogin(task:Task<GoogleSignInAccount>): Boolean
-    fun register(email: String, password: String): Boolean
+    fun handleGoogleLogin(task:Task<GoogleSignInAccount>)
+    fun register(email: String, password: String)
     fun addToCart(product: Product)
     fun addToFavorite(product: Product)
     fun removeFromCart(product: Product)

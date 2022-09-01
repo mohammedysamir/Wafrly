@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             if (isChecked) {
                 findViewById<AppCompatButton>(R.id.registerButton).text = getString(R.string.login)
                 findViewById<AppCompatButton>(R.id.loginGoogleButton).visibility = View.VISIBLE
+                //todo: add animation for login google button
             } else {
                 findViewById<AppCompatButton>(R.id.registerButton).text =
                     getString(R.string.register)
