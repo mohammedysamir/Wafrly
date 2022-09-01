@@ -16,16 +16,16 @@ class AccountRepository(val context: Context) : IAccountRepository {
         return MutableLiveData<Intent>(accountOperators.showGoogleLogin().signInIntent)
     }
 
-    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>):MutableLiveData<Boolean> {
-        return MutableLiveData(accountOperators.handleGoogleLogin(task))
+    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>) {
+        accountOperators.handleGoogleLogin(task)
     }
 
-    override fun login(email: String, password: String): MutableLiveData<Boolean> {
-        return MutableLiveData<Boolean>(accountOperators.login(email, password))
+    override fun login(email: String, password: String) {
+        accountOperators.login(email, password)
     }
 
-    override fun register(email: String, password: String): MutableLiveData<Boolean> {
-        return MutableLiveData<Boolean>(accountOperators.register(email, password))
+    override fun register(email: String, password: String) {
+        accountOperators.register(email, password)
     }
 
     override fun addToCart(product: Product) {

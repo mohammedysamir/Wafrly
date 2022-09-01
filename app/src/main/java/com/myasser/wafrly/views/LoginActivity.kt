@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import com.myasser.wafrly.R
 import com.myasser.wafrly.viewmodels.LoginViewModel
 
@@ -22,6 +20,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private var isChecked = false //indicator for login-register checkbox
     private lateinit var loginViewModel: LoginViewModel
     private val googleSignInRequestCode = 1900
+
     companion object {
         var user: FirebaseUser? = null
     }
@@ -78,38 +77,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                 if (isChecked) {
                     //login validation
-                    loginViewModel.login(email, password).observe(this) {
-                        if (it) {
-                            startActivity(Intent(this, CategoryActivity::class.java))
-                            finish()
-                        } else {
-                            Toast.makeText(this,
-                                getString(R.string.login_failed),
-                                Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                    loginViewModel.login(email, password)
+                    finish()
                 } else {
                     //register
-                    loginViewModel.register(email, password).observe(this) {
-                        if (it) {
-                            Toast.makeText(v.context,
-                                getString(R.string.register_successfully),
-                                Toast.LENGTH_SHORT).show()
-                            //navigate to display categories activity
-                            startActivity(Intent(this, CategoryActivity::class.java))
-                            finish()
-                        } else {
-                            Toast.makeText(v.context,
-                                getString(R.string.register_failed),
-                                Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                    loginViewModel.register(email, password)
+                    finish()
                 }
             }
             R.id.loginGoogleButton -> {
                 //login with google (firebase)
-                loginViewModel.showGoogleLogin().observe(this){
-                    startActivityForResult(it,googleSignInRequestCode)
+                loginViewModel.showGoogleLogin().observe(this) {
+                    startActivityForResult(it, googleSignInRequestCode)
+                    finish()
                 }
             }
         }
@@ -117,19 +97,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode){
+        when (requestCode) {
             googleSignInRequestCode -> {
-                val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-                loginViewModel.handleGoogleLogin(task).observe(this){
-                    if(it){
-                        startActivity(Intent(this, CategoryActivity::class.java))
-                        finish()
-                    }else{
-                        Toast.makeText(this,
-                            getString(R.string.login_failed),
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
+                val task: Task<GoogleSignInAccount> =
+                    GoogleSignIn.getSignedInAccountFromIntent(data)
+                loginViewModel.handleGoogleLogin(task)
             }
         }
     }

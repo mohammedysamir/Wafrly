@@ -9,9 +9,9 @@ import com.myasser.wafrly.models.data.Product
 
 interface IAccountRepository {
     fun showGoogleLogin(): MutableLiveData<Intent> //show login prompt
-    fun handleGoogleLogin(task: Task<GoogleSignInAccount>) :MutableLiveData<Boolean>//validate info and login
-    fun login(email: String, password: String):MutableLiveData<Boolean> //validate info and login
-    fun register(email: String, password: String):MutableLiveData<Boolean>
+    fun handleGoogleLogin(task: Task<GoogleSignInAccount>)//validate info and login
+    fun login(email: String, password: String)//validate info and login
+    fun register(email: String, password: String)
     fun addToCart(product: Product)
     fun addToFavorite(product: Product)
     fun removeFromCart(product: Product)
