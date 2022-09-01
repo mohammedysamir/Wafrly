@@ -3,6 +3,8 @@ package com.myasser.wafrly.views
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -36,14 +38,32 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             //when the box is checked ... make the username edit text invisible and the login with google button visible, change register button label
             this.isChecked = isChecked
+            val loginGoogleButton = findViewById<AppCompatButton>(R.id.loginGoogleButton)
             if (isChecked) {
                 findViewById<AppCompatButton>(R.id.registerButton).text = getString(R.string.login)
-                findViewById<AppCompatButton>(R.id.loginGoogleButton).visibility = View.VISIBLE
-                //todo: add animation for login google button
+                loginGoogleButton.visibility = View.VISIBLE
+                loginGoogleButton.isEnabled=true
+                loginGoogleButton.animation =
+                    AnimationUtils.loadAnimation(this, R.anim.fade_top_to_bottom).apply {
+                        fillAfter = true
+                    }
             } else {
                 findViewById<AppCompatButton>(R.id.registerButton).text =
                     getString(R.string.register)
-                findViewById<AppCompatButton>(R.id.loginGoogleButton).visibility = View.INVISIBLE
+                var fadeDuration = 0L
+                loginGoogleButton.animation =
+                    AnimationUtils.loadAnimation(this, R.anim.fade_bottom_to_top).apply {
+                        fillAfter = true
+                        fadeDuration = duration
+                        setAnimationListener(object : Animation.AnimationListener {
+                            override fun onAnimationRepeat(animation: Animation?) {}
+                            override fun onAnimationEnd(animation: Animation?) {
+                                loginGoogleButton.visibility = View.GONE
+                                loginGoogleButton.isEnabled=false
+                            }
+                            override fun onAnimationStart(animation: Animation?) {}
+                        })
+                    }
             }
         }
 
