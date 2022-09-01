@@ -1,4 +1,9 @@
 package com.myasser.wafrly.viewmodels
 
-class FavoriteViewModel {
+import android.content.Context
+import com.myasser.wafrly.repository.AccountRepository
+
+class FavoriteViewModel(context: Context) {
+    private val accountRepository = AccountRepository(context)
+    fun getFavorite()= accountRepository.getFavorite()
 }

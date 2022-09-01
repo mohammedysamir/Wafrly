@@ -8,7 +8,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.myasser.wafrly.R
 import com.myasser.wafrly.viewmodels.LoginViewModel
 
@@ -16,7 +21,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var checkBox: CheckBox
     private var isChecked = false //indicator for login-register checkbox
     private lateinit var loginViewModel: LoginViewModel
-
+    private val googleSignInRequestCode = 1900
     companion object {
         var user: FirebaseUser? = null
     }
@@ -35,6 +40,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             if (isChecked) {
                 findViewById<AppCompatButton>(R.id.registerButton).text = getString(R.string.login)
                 findViewById<AppCompatButton>(R.id.loginGoogleButton).visibility = View.VISIBLE
+                //todo: add animation for login google button
             } else {
                 findViewById<AppCompatButton>(R.id.registerButton).text =
                     getString(R.string.register)
@@ -102,7 +108,28 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.loginGoogleButton -> {
                 //login with google (firebase)
-                loginViewModel.googleLogin()
+                loginViewModel.showGoogleLogin().observe(this){
+                    startActivityForResult(it,googleSignInRequestCode)
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            googleSignInRequestCode -> {
+                val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+                loginViewModel.handleGoogleLogin(task).observe(this){
+                    if(it){
+                        startActivity(Intent(this, CategoryActivity::class.java))
+                        finish()
+                    }else{
+                        Toast.makeText(this,
+                            getString(R.string.login_failed),
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

@@ -16,4 +16,17 @@
     <string name="empty_email_error">Can\'t proceed without an email</string>
     <string name="empty_password_error">Can\'t proceed without a password</string>
     <string name="fill_fields_command">Please fill in all fields</string>
+    <string name="welcome_text">Welcome to \nWafrly</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="remove_from_cart">Remove from cart</string>
+    <string name="cart">Cart</string>
+    <string name="favorite_items">Favorite items</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_checkout">Confirm Checkout</string>
+    <string name="do_you_confirm_this_checkout_with_bill_amount">Do you confirm this checkout with bill amount = $ %1$s?</string>
+    <string name="checkout">Checkout</string>
+    <string name="checkout_confirmed_msg">Items have been added to a queue and will be delivered soon.</string>
+    <string name="remove_favorite_error">Can\'t remove item from favorite, try again later!</string>
+    <string name="remove_cart_error">Can\'t remove item from cart, try again later!</string>
 </resources>

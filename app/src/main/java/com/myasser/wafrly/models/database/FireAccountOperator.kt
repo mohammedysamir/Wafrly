@@ -1,16 +1,27 @@
 package com.myasser.wafrly.models.database
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.myasser.wafrly.R
 import com.myasser.wafrly.models.data.Product
-import com.myasser.wafrly.views.LoginActivity
+import com.myasser.wafrly.views.CategoryActivity
 
 class FireAccountOperator(val context: Context) : AccountOperators {
     private val auth: FirebaseAuth = Firebase.auth
@@ -18,40 +29,68 @@ class FireAccountOperator(val context: Context) : AccountOperators {
     private val cartReference = database.child("cart")
     private val favoriteReference = database.child("favorite")
 
-    override fun login(email: String, password: String): Boolean {
-        var loginSuccess = false
+    override fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
+                context.startActivity(Intent(context, CategoryActivity::class.java))
                 Toast.makeText(context,
                     context.getString(R.string.login_successfully),
                     Toast.LENGTH_SHORT).show()
-                LoginActivity.user = auth.currentUser
-                loginSuccess = true
+                //todo: need to call finish() here
             } else {
-                loginSuccess = false
+                Toast.makeText(context,
+                    context.getString(R.string.login_failed),
+                    Toast.LENGTH_SHORT).show()
             }
         }
-        return loginSuccess
     }
 
-    override fun googleLogin(): Boolean {
-        //todo: read firebase doc, define a way to auth with google's token
-        Toast.makeText(context, "Google login not implemented", Toast.LENGTH_LONG).show()
-        return true
+    //todo: move register, login navigation here
+
+    override fun showGoogleLogin(): GoogleSignInClient {
+        val webClientId = "836596930234-gn4b5h8td54c7av2e7164s2cqm6inkuv.apps.googleusercontent.com"
+        val signInRequest = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(webClientId)
+            .requestEmail()
+            .build()
+        return GoogleSignIn.getClient(context, signInRequest)
     }
 
-    override fun register(email: String, password: String): Boolean {
-        var registerSuccess = false
+    override fun handleGoogleLogin(task: Task<GoogleSignInAccount>) {
+        try {
+            val account = task.getResult(ApiException::class.java)
+            account?.let {
+                //get credentials
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                auth.signInWithCredential(credential).addOnCompleteListener {
+                    if (task.isSuccessful) {
+                        context.startActivity(Intent(context, CategoryActivity::class.java))
+                    } else {
+                        Toast.makeText(context,
+                            context.getString(R.string.login_failed),
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } catch (e: ApiException) {
+            Log.e("Google Login", "signInResult:failed code=" + e.statusCode)
+        }
+    }
+
+    override fun register(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                LoginActivity.user = auth.currentUser
-                registerSuccess = true
+                context.startActivity(Intent(context, CategoryActivity::class.java))
+                Toast.makeText(context,
+                    context.getString(R.string.register_successfully),
+                    Toast.LENGTH_SHORT).show()
+                //todo: need to call finish() here
             } else {
-                LoginActivity.user = null
-                registerSuccess = false
+                Toast.makeText(context,
+                    context.getString(R.string.register_failed),
+                    Toast.LENGTH_SHORT).show()
             }
         }
-        return registerSuccess
     }
 
     //todo: test below functions
@@ -68,7 +107,9 @@ class FireAccountOperator(val context: Context) : AccountOperators {
             .addListenerForSingleValueEvent(object :
                 com.google.firebase.database.ValueEventListener {
                 override fun onCancelled(p0: com.google.firebase.database.DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(context,
+                        context.getString(R.string.remove_cart_error),
+                        Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onDataChange(p0: com.google.firebase.database.DataSnapshot) {
@@ -84,7 +125,9 @@ class FireAccountOperator(val context: Context) : AccountOperators {
             .addListenerForSingleValueEvent(object :
                 com.google.firebase.database.ValueEventListener {
                 override fun onCancelled(p0: com.google.firebase.database.DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(context,
+                        context.getString(R.string.remove_favorite_error),
+                        Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onDataChange(p0: com.google.firebase.database.DataSnapshot) {
@@ -105,6 +148,11 @@ class FireAccountOperator(val context: Context) : AccountOperators {
         return products
     }
 
+    override fun clearCart() {
+        //todo: may need to be tested
+        cartReference.setValue(null)
+    }
+
     override fun getFavorite(): List<Product> {
         val products = ArrayList<Product>()
         favoriteReference.get().addOnSuccessListener {
@@ -113,5 +161,36 @@ class FireAccountOperator(val context: Context) : AccountOperators {
             }
         }
         return products
+    }
+
+    override fun getCurrentUser() = auth.currentUser
+
+    override fun notifyPurchase(bill: Double) {
+        val channelId = "100"
+        val title = "Wafrly purchase confirmation"
+        val body =
+            "A purchase operations has been done with a bill of $ $bill. Thank you for using Wafrly"
+        val builder = NotificationCompat.Builder(context, channelId).setSmallIcon(R.drawable.wafrly)
+            .setContentTitle(title)
+            .setContentText(body).setPriority(NotificationCompat.PRIORITY_HIGH).setStyle(
+                NotificationCompat.BigTextStyle().bigText(body)) //more than one line body
+            .setAutoCancel(true)
+        //if we want to navigate to app's activity, we must define an explicit intent and pass it to the builder
+        //create  notification channel
+        createNotificationChannel(context.resources.getString(R.string.app_name), title, channelId)
+        with(NotificationManagerCompat.from(context)) {
+            notify(channelId.toInt(), builder.build())
+        }
+    }
+
+    private fun createNotificationChannel(appName: String, title: String, channelId: String) {
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(channelId, appName, importance).apply {
+            this.description = title
+            this.enableLights(true)
+        }
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

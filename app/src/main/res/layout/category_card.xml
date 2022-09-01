@@ -19,10 +19,5 @@
             android:text="test"
             android:textSize="30sp"
             android:textStyle="bold" />
-        <!--todo: cardview must change color randomly, text color too and image must be set by glide-->
-        <ImageView
-            android:id="@+id/cardImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>
