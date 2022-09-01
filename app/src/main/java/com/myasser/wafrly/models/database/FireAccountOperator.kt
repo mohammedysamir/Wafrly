@@ -184,6 +184,10 @@ class FireAccountOperator(val context: Context) : AccountOperators {
         }
     }
 
+    override fun logout() {
+        auth.signOut()
+    }
+
     private fun createNotificationChannel(appName: String, title: String, channelId: String) {
         val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel(channelId, appName, importance).apply {
