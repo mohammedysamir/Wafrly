@@ -7,12 +7,14 @@ import android.os.Looper
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.myasser.wafrly.R
 
 class SplashActivity : AppCompatActivity() {
     init {
         FirebaseApp.initializeApp(this) //initialize firebase
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -23,10 +25,13 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             //todo: remove hard-coded delay and depend on max( coroutines department fetching, 2 seconds) -> Hook with Splash VM
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            if (FirebaseAuth.getInstance().currentUser != null)
+                startActivity(Intent(this, CategoryActivity::class.java))
+            else
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
         }, 2000)
-        //todo: image should be replaced with dark-version if the theme is dark
+        //todo: must add ability to logout to enable sign in again
     }
 }
 /**
