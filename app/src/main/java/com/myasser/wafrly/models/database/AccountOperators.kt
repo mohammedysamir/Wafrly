@@ -21,4 +21,5 @@ interface AccountOperators {
     fun clearCart()
     fun getFavorite():List<Product>
     fun getCurrentUser():FirebaseUser?
+    fun notifyPurchase(bill: Double)
 }

@@ -1,8 +1,12 @@
 package com.myasser.wafrly.models.database
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -154,4 +158,32 @@ class FireAccountOperator(val context: Context) : AccountOperators {
 
     override fun getCurrentUser() = auth.currentUser
 
+    override fun notifyPurchase(bill: Double) {
+        val channelId = "100"
+        val title = "Wafrly purchase confirmation"
+        val body =
+            "A purchase operations has been done with a bill of $ $bill. Thank you for using Wafrly"
+        val builder = NotificationCompat.Builder(context, channelId).setSmallIcon(R.drawable.wafrly)
+            .setContentTitle(title)
+            .setContentText(body).setPriority(NotificationCompat.PRIORITY_HIGH).setStyle(
+                NotificationCompat.BigTextStyle().bigText(body)) //more than one line body
+            .setAutoCancel(true)
+        //if we want to navigate to app's activity, we must define an explicit intent and pass it to the builder
+        //create  notification channel
+        createNotificationChannel(context.resources.getString(R.string.app_name), title, channelId)
+        with(NotificationManagerCompat.from(context)) {
+            notify(channelId.toInt(), builder.build())
+        }
+    }
+
+    private fun createNotificationChannel(appName: String, title: String, channelId: String) {
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(channelId, appName, importance).apply {
+            this.description = title
+            this.enableLights(true)
+        }
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
 }

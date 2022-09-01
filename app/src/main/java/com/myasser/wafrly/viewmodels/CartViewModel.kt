@@ -9,7 +9,6 @@ import com.myasser.wafrly.repository.AccountRepository
 class CartViewModel(context: Context): ViewModel() {
     private val accountRepo = AccountRepository(context = context)
     fun getCartItems() = accountRepo.getCart()
-
     fun calculateBill(products: List<Product>): MutableLiveData<Double> {
         var bill = 0.0
         for (product in products) {
@@ -18,4 +17,5 @@ class CartViewModel(context: Context): ViewModel() {
         return MutableLiveData(bill)
     }
     fun clearCart() = accountRepo.clearCart()
+    fun notifyPurchase(bill: Double) = accountRepo.notifyPurchase(bill)
 }

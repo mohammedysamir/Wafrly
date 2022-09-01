@@ -45,9 +45,11 @@ class CartActivity : AppCompatActivity(), View.OnClickListener {
                 val descriptionTextView = dialog.findViewById<TextView>(R.id.descriptionTextView)
                 val confirmButton = dialog.findViewById<AppCompatButton>(R.id.confirmCheckoutButton)
                 val cancelButton = dialog.findViewById<AppCompatButton>(R.id.cancelCheckoutButton)
+
+                val bill = cartViewModel.calculateBill(adapter?.products!!)
                 descriptionTextView.text =
                     v.context.resources.getString(R.string.do_you_confirm_this_checkout_with_bill_amount,
-                        cartViewModel.calculateBill(adapter?.products!!).value.toString())
+                        bill.toString())
                 //set listeners to button
                 confirmButton.setOnClickListener {
                     //notify
@@ -56,6 +58,8 @@ class CartActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.LENGTH_LONG).show()
                     //when confirm is clicked, delete all cart items and go to home screen, send notification to user.
                     //todo: send notifications to user after the checkout
+                    cartViewModel.notifyPurchase(bill.value!!)
+
                     //clear cart
                     cartViewModel.clearCart()
 

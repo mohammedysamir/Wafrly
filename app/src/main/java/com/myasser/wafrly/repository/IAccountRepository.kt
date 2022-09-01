@@ -19,4 +19,5 @@ interface IAccountRepository {
     fun getCart(): MutableLiveData<List<Product>>
     fun clearCart()
     fun getFavorite(): MutableLiveData<List<Product>>
+    fun notifyPurchase(bill: Double)
 }

@@ -56,4 +56,8 @@ class AccountRepository(val context: Context) : IAccountRepository {
     override fun getFavorite(): MutableLiveData<List<Product>> {
         return MutableLiveData(accountOperators.getFavorite())
     }
+
+    override fun notifyPurchase(bill: Double) {
+        accountOperators.notifyPurchase(bill)
+    }
 }
