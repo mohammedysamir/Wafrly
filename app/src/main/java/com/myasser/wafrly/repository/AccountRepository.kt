@@ -60,4 +60,8 @@ class AccountRepository(val context: Context) : IAccountRepository {
     override fun notifyPurchase(bill: Double) {
         accountOperators.notifyPurchase(bill)
     }
+
+    override fun logout() {
+        accountOperators.logout()
+    }
 }

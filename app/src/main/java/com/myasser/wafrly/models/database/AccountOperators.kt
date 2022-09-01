@@ -22,4 +22,5 @@ interface AccountOperators {
     fun getFavorite():List<Product>
     fun getCurrentUser():FirebaseUser?
     fun notifyPurchase(bill: Double)
+    fun logout()
 }
