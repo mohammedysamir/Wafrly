@@ -3,8 +3,9 @@ package com.myasser.wafrly.views
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.DecelerateInterpolator
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -41,29 +42,21 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             val loginGoogleButton = findViewById<AppCompatButton>(R.id.loginGoogleButton)
             if (isChecked) {
                 findViewById<AppCompatButton>(R.id.registerButton).text = getString(R.string.login)
-                loginGoogleButton.visibility = View.VISIBLE
-                loginGoogleButton.isEnabled=true
-                loginGoogleButton.animation =
-                    AnimationUtils.loadAnimation(this, R.anim.fade_top_to_bottom).apply {
-                        fillAfter = true
-                    }
+                //animate google button
+                loginGoogleButton.animation = AlphaAnimation(0f, 1f).apply { //fade in anim
+                    interpolator = DecelerateInterpolator()
+                    duration = 500
+                    fillAfter = true
+                }
             } else {
                 findViewById<AppCompatButton>(R.id.registerButton).text =
                     getString(R.string.register)
-                var fadeDuration = 0L
-                loginGoogleButton.animation =
-                    AnimationUtils.loadAnimation(this, R.anim.fade_bottom_to_top).apply {
-                        fillAfter = true
-                        fadeDuration = duration
-                        setAnimationListener(object : Animation.AnimationListener {
-                            override fun onAnimationRepeat(animation: Animation?) {}
-                            override fun onAnimationEnd(animation: Animation?) {
-                                loginGoogleButton.visibility = View.GONE
-                                loginGoogleButton.isEnabled=false
-                            }
-                            override fun onAnimationStart(animation: Animation?) {}
-                        })
-                    }
+                //fade away google button
+                loginGoogleButton.animation = AlphaAnimation(1f, 0f).apply { //fade out
+                    interpolator = AccelerateInterpolator()
+                    duration = 500
+                    fillAfter = true
+                }
             }
         }
 
@@ -81,28 +74,33 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                 val email = emailEditText.text.toString()
                 val password = passwordEditText.text.toString()
+                var valid = true
                 //input validation non-empty email and password
                 if (email.isEmpty()) {
                     emailEditText.error = getString(R.string.empty_email_error)
                     Toast.makeText(this,
                         getString(R.string.fill_fields_command),
                         Toast.LENGTH_SHORT).show()
+                    valid = false
                 }
                 if (password.isEmpty()) {
                     passwordEditText.error = getString(R.string.empty_password_error)
                     Toast.makeText(this,
                         getString(R.string.fill_fields_command),
                         Toast.LENGTH_SHORT).show()
+                    valid = false
                 }
 
-                if (isChecked) {
-                    //login validation
-                    loginViewModel.login(email, password)
-                    finish()
-                } else {
-                    //register
-                    loginViewModel.register(email, password)
-                    finish()
+                if (valid) {
+                    if (isChecked) {
+                        //login validation
+                        loginViewModel.login(email, password)
+                        finish()
+                    } else {
+                        //register
+                        loginViewModel.register(email, password)
+                        finish()
+                    }
                 }
             }
             R.id.loginGoogleButton -> {
