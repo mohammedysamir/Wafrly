@@ -83,6 +83,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.LENGTH_SHORT).show()
                     valid = false
                 }
+                if (!email.contains("@") || !email.contains(".com")) {
+                    emailEditText.error = getString(R.string.invalid_email_format)
+                    valid = false
+                }
                 if (password.isEmpty()) {
                     passwordEditText.error = getString(R.string.empty_password_error)
                     Toast.makeText(this,
@@ -95,11 +99,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     if (isChecked) {
                         //login validation
                         loginViewModel.login(email, password)
-                        finish()
+//                        finish()
                     } else {
                         //register
                         loginViewModel.register(email, password)
-                        finish()
+//                        finish()
                     }
                 }
             }
@@ -107,12 +111,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 //login with google (firebase)
                 loginViewModel.showGoogleLogin().observe(this) {
                     startActivityForResult(it, googleSignInRequestCode)
-                    finish()
+//                    finish()
                 }
             }
         }
     }
-
+    //todo: retype finish() but after solving listener problem
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
