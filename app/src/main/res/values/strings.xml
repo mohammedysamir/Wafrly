@@ -29,4 +29,5 @@
     <string name="checkout_confirmed_msg">Items have been added to a queue and will be delivered soon.</string>
     <string name="remove_favorite_error">Can\'t remove item from favorite, try again later!</string>
     <string name="remove_cart_error">Can\'t remove item from cart, try again later!</string>
+    <string name="invalid_email_format">Invalid Email</string>
 </resources>
